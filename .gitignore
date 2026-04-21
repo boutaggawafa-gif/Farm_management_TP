@@ -2,6 +2,9 @@
 target/
 out/
 build/
+.mvn/apache-maven-*/
+.mvn/apache-maven.zip
+.mvn/repository/
 
 # IDE files
 .idea/
@@ -18,4 +21,3 @@ Thumbs.db
 # Logs and temp
 *.log
 *.tmp
-
