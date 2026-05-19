@@ -20,6 +20,20 @@ public class SoilSensor extends Sensor {
         System.out.println("  Measurement Type: " + type);
     }
 
+    @Override
+    public String getUnit() {
+        if (type == MeasurementType.PH) {
+            return "pH";
+        }
+        if (type == MeasurementType.MOISTURE) {
+            return "%";
+        }
+        if (type == MeasurementType.NITROGIN_CONTENT) {
+            return "mg/kg";
+        }
+        return "";
+    }
+
 
     public enum MeasurementType {
         PH,

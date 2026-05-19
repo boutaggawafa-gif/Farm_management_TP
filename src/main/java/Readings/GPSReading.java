@@ -51,6 +51,11 @@ public class GPSReading extends Reading {
     }
 
     @Override
+    public String getUnit() {
+        return "km from center";
+    }
+
+    @Override
     public int compareTo(Reading o) { // Reading, not Object
         GPSReading other = (GPSReading) o; // cast to access sensor
         return this.sensor.getDate().compareTo(other.sensor.getDate()); // use compareTo for dates

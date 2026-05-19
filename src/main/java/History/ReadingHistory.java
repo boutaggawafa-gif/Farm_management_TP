@@ -89,7 +89,7 @@ public class ReadingHistory {
             System.out.println();
             System.out.println("Zone: " + zoneName);
             System.out.println("----------------------------------------------");
-            System.out.printf("%-12s %-12s %-20s %-20s%n", "Date", "Sensor", "Reading Type", "Status");
+            System.out.printf("%-12s %-12s %-20s %-16s %-20s%n", "Date", "Sensor", "Reading Type", "Value", "Status");
             System.out.println("----------------------------------------------");
 
             for (Map.Entry<LocalDate, Reading> entry : zoneReadings.entrySet()) {
@@ -98,10 +98,11 @@ public class ReadingHistory {
                 ReadingStatus status = reading.evaluate();
 
                 System.out.printf(
-                    "%-12s %-12s %-20s %-20s%n",
+                    "%-12s %-12s %-20s %-16s %-20s%n",
                     entry.getKey(),
                     sensor.getId(),
                     reading.getClass().getSimpleName(),
+                    formatValueWithUnit(reading),
                     colorStatus(status)
                 );
             }
@@ -196,12 +197,16 @@ public class ReadingHistory {
         String status = colorStatus(reading.evaluate());
 
         System.out.printf(
-            "%-18s | %-40s %8.2f  %s%n",
+            "%-18s | %-40s %16s  %s%n",
             label,
             bar,
-            value,
+            formatValueWithUnit(reading),
             status
         );
+    }
+
+    private String formatValueWithUnit(Reading reading) {
+        return String.format("%.2f %s", reading.getChartValue(), reading.getUnit());
     }
 
     private int calculateBarWidth(double value, double maxValue) {

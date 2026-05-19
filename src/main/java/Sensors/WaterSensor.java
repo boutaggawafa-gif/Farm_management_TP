@@ -20,6 +20,17 @@ public class WaterSensor extends Sensor {
         System.out.println("  Measurement Type: " + type);
     }
 
+    @Override
+    public String getUnit() {
+        if (type == MeasurementType.TEMPERATURE) {
+            return "C";
+        }
+        if (type == MeasurementType.DISSOLVED_OXYGEN) {
+            return "mg/L";
+        }
+        return "";
+    }
+
 
     public enum MeasurementType {
         TEMPERATURE,

@@ -21,6 +21,20 @@ public class EnvironmentalSensor extends Sensor {
         System.out.println("  Measurement Type: " + type);
     }
 
+    @Override
+    public String getUnit() {
+        if (type == MeasurementType.TEMPERATURE) {
+            return "C";
+        }
+        if (type == MeasurementType.HUMIDITY) {
+            return "%";
+        }
+        if (type == MeasurementType.RAINFALL) {
+            return "mm";
+        }
+        return "";
+    }
+
     // ----------------------------- Sensor Type Enum ------------------//
     public enum MeasurementType {
         TEMPERATURE,

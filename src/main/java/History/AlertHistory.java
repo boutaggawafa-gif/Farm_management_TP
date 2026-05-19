@@ -53,7 +53,8 @@ public class AlertHistory {
             return;
         }
 
-        System.out.printf("%-12s %-10s %-12s %-20s %-12s%n", "Date", "Sensor", "Zone", "Reading Type", "Severity");
+        System.out.printf("%-12s %-10s %-12s %-20s %-16s %-12s%n", "Date", "Sensor", "Zone", "Reading Type",
+                "Value", "Severity");
         System.out.println("--------------------------------------------------------------");
 
         for (AlertPanelRow row : activeAlerts) {
@@ -61,11 +62,12 @@ public class AlertHistory {
             Sensor sensor = reading.getSensor();
 
             System.out.printf(
-                    "%-12s %-10s %-12s %-20s %-12s%n",
+                    "%-12s %-10s %-12s %-20s %-16s %-12s%n",
                     row.date,
                     sensor.getId(),
                     sensor.getLocation().getName(),
                     reading.getClass().getSimpleName(),
+                    formatValueWithUnit(reading),
                     colorSeverity(row.alert.getLevel()));
         }
     }
@@ -203,8 +205,8 @@ public class AlertHistory {
             return;
         }
 
-        System.out.printf("%-12s %-10s %-12s %-18s %-20s %-12s%n", "Date", "Sensor", "Zone", "Sensor Type",
-                "Reading Type", "Severity");
+        System.out.printf("%-12s %-10s %-12s %-18s %-20s %-16s %-12s%n", "Date", "Sensor", "Zone",
+                "Sensor Type", "Reading Type", "Value", "Severity");
         System.out.println("--------------------------------------------------------------");
 
         for (AlertPanelRow row : rows) {
@@ -212,13 +214,18 @@ public class AlertHistory {
             Sensor sensor = reading.getSensor();
 
             System.out.printf(
-                    "%-12s %-10s %-12s %-18s %-20s %-12s%n",
+                    "%-12s %-10s %-12s %-18s %-20s %-16s %-12s%n",
                     row.date,
                     sensor.getId(),
                     sensor.getLocation().getName(),
                     sensor.getClass().getSimpleName(),
                     reading.getClass().getSimpleName(),
+                    formatValueWithUnit(reading),
                     colorSeverity(row.alert.getLevel()));
         }
+    }
+
+    private String formatValueWithUnit(Reading reading) {
+        return String.format("%.2f %s", reading.getChartValue(), reading.getUnit());
     }
 }

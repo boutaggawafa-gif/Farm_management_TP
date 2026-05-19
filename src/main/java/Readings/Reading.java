@@ -14,4 +14,6 @@ public abstract class Reading implements Comparable<Reading> {
 
     public abstract double getChartValue();
 
+    public abstract String getUnit();
+
 }

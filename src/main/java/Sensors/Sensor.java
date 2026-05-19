@@ -50,8 +50,9 @@ public class Sensor {
         System.out.println("  Location: " + location.getName());
         System.out.println("  Status: " + status);
         System.out.println("  Date: " + date);
-        System.out.println("  Last Value: " + value);
-        thresholdRange.displayRange();
+        System.out.println("  Last Value: " + value + " " + getUnit());
+        System.out.println("  Threshold Range: " + thresholdRange.getMinValue() + " to " + thresholdRange.getMaxValue()
+                + " " + getUnit());
     }
 
     // getters
@@ -69,5 +70,9 @@ public class Sensor {
 
     public LocalDate getDate() {
         return date; // removed stray semicolon
+    }
+
+    public String getUnit() {
+        return "";
     }
 }

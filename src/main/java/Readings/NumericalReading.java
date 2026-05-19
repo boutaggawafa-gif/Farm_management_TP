@@ -48,6 +48,11 @@ public class NumericalReading extends Reading {
     }
 
     @Override
+    public String getUnit() {
+        return sensor.getUnit();
+    }
+
+    @Override
     public int compareTo(Reading o) {              // Reading, not Object
         NumericalReading other = (NumericalReading) o; // cast to access sensor
         return this.sensor.getDate().compareTo(other.sensor.getDate()); // use compareTo for dates

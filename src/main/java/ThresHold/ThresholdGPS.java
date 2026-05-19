@@ -16,8 +16,8 @@ public class ThresholdGPS extends ThresholdRange {
         System.out.println("  GPS Threshold:");
         System.out.println("    Center Latitude: " + centerLatitude);
         System.out.println("    Center Longitude: " + centerLongitude);
-        System.out.println("    Radius: " + radius);
-        System.out.println("    Perimeter: " + 2 * Math.PI * radius);
+        System.out.println("    Radius: " + radius + " km");
+        System.out.println("    Perimeter: " + 2 * Math.PI * radius + " km");
     }
 
 

@@ -37,8 +37,8 @@ public class GPSSensor extends Sensor {
         System.out.println("  Location: " + location.getName());
         System.out.println("  Status: " + status);
         System.out.println("  Date: " + date);
-        System.out.println("  Current Latitude: " + latitude);
-        System.out.println("  Current Longitude: " + longitude);
+        System.out.println("  Current Latitude: " + latitude + " decimal degrees");
+        System.out.println("  Current Longitude: " + longitude + " decimal degrees");
         thresholdRange.displayRange();
     }
 
@@ -49,5 +49,10 @@ public class GPSSensor extends Sensor {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    @Override
+    public String getUnit() {
+        return "km";
     }
 }
