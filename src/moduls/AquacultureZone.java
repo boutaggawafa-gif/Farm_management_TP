@@ -1,0 +1,96 @@
+package moduls;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AquacultureZone  extends Zones  implements Producible{
+
+     private Tank tank;
+     private int numberOfAnimals;
+     private  Feedingprogramme feedingprogrammeA;
+     private double totalP;
+     private List<ProductionInfo> productionRecords =new ArrayList<>();
+
+     public AquacultureZone(int code, String name, Tank tank ,String feedType, int quantitiesPerMeal) {
+          super(code, name);
+          this.tank = tank;
+          this.numberOfAnimals = 0;
+          this.feedingprogrammeA = new Feedingprogramme(feedType, quantitiesPerMeal);
+          this.totalP = 0;
+     }
+
+     public int getNumberOfAnimals() {
+          return numberOfAnimals;
+     }
+     public Feedingprogramme getFeedingprogrammeA() {
+          return feedingprogrammeA;
+     }
+     public double getTotalP() {
+          return totalP;
+     }
+
+     public void setTotalP(double totalP) {
+          this.totalP = totalP;
+     }
+
+     public void setFeedingprogrammeA(Feedingprogramme feedingprogrammeA) {
+          this.feedingprogrammeA = feedingprogrammeA;
+     }
+
+     public void setNumberOfAnimals(int numberOfAnimals) {
+          this.numberOfAnimals = numberOfAnimals;
+     }
+
+     public void recordProduction(LocalDate date, double quantity) {
+          ProductionInfo P=new ProductionInfo(date,quantity,ProductionType.HARVESTWEIGHT,"kg");
+          productionRecords.add(P);
+          this.totalP += quantity ;
+          System.out.println("record Production added succesfuly");
+
+     }
+
+     @Override
+     public void displayProduction() {
+          System.out.println("=== Harvest Weight Records - Zone: " + getName() + " ===");
+          if (productionRecords.isEmpty()) {
+               System.out.println("  No production records yet.");
+               return;
+          }
+          for (ProductionInfo p : productionRecords) {
+               p.display();
+          }
+          System.out.println("  Total Harvest Weight : " + totalP + " kg");
+     }
+
+     @Override
+     public void displayTotalProduction() {
+          System.out.println("Zone: " + getName()
+                  + " | Total Harvest : " + totalP + " kg");
+     }
+
+
+
+     @Override
+     public void display() {
+          System.out.println("=== AquacultureZone ===");
+          System.out.println("  Code  : " + getUniquecode());
+          System.out.println("  Name  : " + getName());
+          System.out.println("  Status: " + Status);
+          System.out.println("  Number of animals: " + numberOfAnimals);
+          feedingprogrammeA.display();
+          tank.display();
+     }
+
+     public void displayFeedingSchedules() {
+          System.out.println("=== Feeding Schedule for Zone: " + getName() + " ===");
+          feedingprogrammeA.display();
+     }
+
+     public void defineFeedingSchedule(List<String> mealTimes) {
+          for (String time : mealTimes) {
+               feedingprogrammeA.addMealTime(time);
+          }
+     }
+
+}
