@@ -1,4 +1,6 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -26,5 +28,17 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### Maven ###
+target/
+build/
+.mvn/apache-maven-*/
+.mvn/apache-maven.zip
+.mvn/repository/
+
+### Logs & Temp ###
+*.log
+*.tmp
+
+### OS Files ###
 .DS_Store
+Thumbs.db
