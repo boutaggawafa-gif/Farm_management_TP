@@ -1,14 +1,14 @@
 package Sensors;
 
 import ThresHold.ThresholdRange;
-import Zones.Zone;
+import moduls.AquacultureZone;
 
 import java.time.LocalDate;
 
 public class WaterSensor extends Sensor {
     protected MeasurementType type;
 
-    public WaterSensor(String id, Zone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
+    public WaterSensor(String id, AquacultureZone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
         super(id, location, thresholdRange, date);
         this.type = type;
     }

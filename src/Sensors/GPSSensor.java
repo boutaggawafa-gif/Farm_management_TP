@@ -1,7 +1,7 @@
 package Sensors;
 
 import ThresHold.ThresholdGPS;
-import Zones.Zone;
+import moduls.LivestockZone;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ public class GPSSensor extends Sensor {
     protected ThresholdGPS range;
 
     // constructor
-    public GPSSensor(String id, Zone location, ThresholdGPS range, LocalDate date) {
+    public GPSSensor(String id, LivestockZone location, ThresholdGPS range, LocalDate date) {
         super(id, location, range, date); // works if ThresholdGPS extends ThresholdRange
     }
 

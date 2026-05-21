@@ -1,13 +1,13 @@
 package Sensors;
 import ThresHold.ThresholdRange;
-import Zones.Zone;
+import moduls.LivestockZone;
 
 import java.time.LocalDate;
 
 public class BiometricSensor extends Sensor {
     protected MeasurementType type;
     // ------------------------------ Constructor ------------------//
-    public BiometricSensor(String id, Zone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
+    public BiometricSensor(String id, LivestockZone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
         super(id, location, thresholdRange, date);
         this.type= type;
     }

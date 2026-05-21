@@ -1,7 +1,7 @@
 package Sensors;
 
 import ThresHold.ThresholdRange;
-import Zones.Zone;
+import moduls.Cropzone;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ public class EnvironmentalSensor extends Sensor {
     protected MeasurementType type;
 
     // ----------------------------- Constructor ------------------//
-    public EnvironmentalSensor(String id, Zone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
+    public EnvironmentalSensor(String id, Cropzone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate date) {
         super(id, location, thresholdRange , date);
         this.type = type;
     }

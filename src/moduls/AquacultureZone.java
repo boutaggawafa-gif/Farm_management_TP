@@ -1,5 +1,9 @@
 package moduls;
 
+import Sensors.EnvironmentalSensor;
+import Sensors.GPSSensor;
+import Sensors.WaterSensor;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +15,12 @@ public class AquacultureZone  extends Zones  implements Producible{
      private  Feedingprogramme feedingprogrammeA;
      private double totalP;
      private List<ProductionInfo> productionRecords =new ArrayList<>();
+    private List<WaterSensor> waterSensors = new ArrayList<>();
 
-     public AquacultureZone(int code, String name, Tank tank ,String feedType, int quantitiesPerMeal) {
+     public AquacultureZone(int code, String name, Tank tank ,int  numberOfAnimals ,String feedType, int quantitiesPerMeal) {
           super(code, name);
           this.tank = tank;
-          this.numberOfAnimals = 0;
+          this.numberOfAnimals =  numberOfAnimals;
           this.feedingprogrammeA = new Feedingprogramme(feedType, quantitiesPerMeal);
           this.totalP = 0;
      }
@@ -92,5 +97,24 @@ public class AquacultureZone  extends Zones  implements Producible{
                feedingprogrammeA.addMealTime(time);
           }
      }
+
+
+    public void addWaterSensor(WaterSensor sensor) {
+        if (sensor != null) {
+            waterSensors.add(sensor);
+            System.out.println("GPS sensor [" + sensor.getId() + "] added to zone: " + getName());
+        } else {
+            System.out.println("Cannot add null sensor.");
+        }
+    }
+
+    @Override
+    protected void suspendSensors() {
+        for (WaterSensor s : waterSensors) s.suspend();
+    }
+    @Override
+    protected void activateSensors() {
+        for (WaterSensor s : waterSensors) s.activate();
+    }
 
 }

@@ -1,9 +1,12 @@
 package moduls;
+import Sensors.EnvironmentalSensor;
+
 import java.time.LocalDate;
 import java.util.*;
 public class Cropzone extends Zones implements Producible {
 
     private List<Crop> crops = new ArrayList<>();
+    private List<EnvironmentalSensor> environmentalSensors = new ArrayList<>();
     private List<ProductionInfo> productionInfos = new ArrayList<>();
     private double totalp;
 
@@ -101,6 +104,17 @@ public class Cropzone extends Zones implements Producible {
             }
         }
         System.out.println("----------------------------------------");
+    }
+    public void addSensor(EnvironmentalSensor sensor) {
+        environmentalSensors.add(sensor);
+    }
+
+    protected void suspendSensors() {
+        for (EnvironmentalSensor s : environmentalSensors) s.suspend();
+    }
+    @Override
+    protected void activateSensors() {
+        for (EnvironmentalSensor s : environmentalSensors) s.activate();
     }
     }
 

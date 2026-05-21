@@ -6,7 +6,7 @@ import ThresHold.ThresholdRange;
 public class NumericalReading extends Reading {
     Sensor sensor;
     ThresholdRange range;
-    ReadingStatus status;
+    Readings.ReadingStatus status;
 
     // constructor
     public NumericalReading(Sensor sensor, ThresholdRange range) {
@@ -15,10 +15,10 @@ public class NumericalReading extends Reading {
         this.status = evaluate();
     }
 
-    public ReadingStatus evaluate() {
+    public Readings.ReadingStatus evaluate() {
         double value = sensor.getValue();
         if (value > range.getMinValue() && value < range.getMaxValue()) {
-            status = ReadingStatus.NORMAL;
+            status = Readings.ReadingStatus.NORMAL;
             return status;
         } else if ((value > range.getMaxValue() && value < (range.getMaxValue() * 1.5))
             || (value < range.getMinValue() && value > (range.getMinValue() * 0.5))) {

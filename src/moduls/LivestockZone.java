@@ -1,8 +1,19 @@
 package moduls;
+import Sensors.BiometricSensor;
+import Sensors.GPSSensor;
+import ThresHold.ThresholdGPS;
+
 import java.util.*;
 public class LivestockZone extends Zones{
     private List<Animal>  animals;
     private Feedingprogramme feedingprogramme;
+    private ThresholdGPS thresholdGPS;
+
+   /* public LivestockZone(int code, String name, Feedingprogramme feedingprogramme, ThresholdGPS thresholdGPS) {
+        super(code, name);
+        this.feedingprogramme = feedingprogramme;
+        this.thresholdGPS = thresholdGPS;
+    }*/
 
     public LivestockZone(int code, String name, String feedType, int quantitiesPerMeal) {
         super(code, name);
@@ -17,7 +28,8 @@ public class LivestockZone extends Zones{
     public void setFeedingprogramme(Feedingprogramme feedingprogramme) {this.feedingprogramme = feedingprogramme;}
 
     public List<Animal> getAnimals() {return animals;}
-
+    private List<BiometricSensor> biometricSensors = new ArrayList<>();
+    private List<GPSSensor> gpsSensors = new ArrayList<>();
     public void setAnimals(List<Animal> animals) {
         this.animals = animals;
     }
@@ -71,6 +83,35 @@ public class LivestockZone extends Zones{
         }
     }
 
+    public void addBiometricSensor(BiometricSensor sensor) {
+        if (sensor != null) {
+            biometricSensors.add(sensor);
+            System.out.println("Biometric sensor [" + sensor.getId()+ "] added to zone: " + getName());
+        } else {
+            System.out.println("Cannot add null sensor.");
+        }
+    }
+
+    public void addGPSSensor(GPSSensor sensor) {
+        if (sensor != null) {
+            gpsSensors.add(sensor);
+            System.out.println("GPS sensor [" + sensor.getId() + "] added to zone: " + getName());
+        } else {
+            System.out.println("Cannot add null sensor.");
+        }
+    }
+
+    @Override
+    protected void suspendSensors() {
+        for (BiometricSensor s : biometricSensors) s.suspend();
+        for (GPSSensor s : gpsSensors) s.suspend();
+    }
+
+    @Override
+    protected void activateSensors() {
+        for (BiometricSensor s : biometricSensors) s.activate();
+        for (GPSSensor s : gpsSensors) s.activate();
+    }
 
 
 }

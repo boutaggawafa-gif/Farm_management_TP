@@ -29,18 +29,31 @@ public abstract class Zones  implements Monitorable{
 
     @Override
     public void activate() {
-        this.Status=Zonestatus.ACTIVE;
-        //add the activation of sensors
-        System.out.println("Zone [" + name + "]  ACTIVE");
+        Zonestatus previous = this.Status;
+        this.Status = Zonestatus.ACTIVE;
+        activateSensors();
+        System.out.println("----------------------------------");
+        System.out.println("  Zone Activated");
+        System.out.println("  Name   : " + name);
+        System.out.println("  Code   : " + getUniquecode());
+        System.out.println("  Status : " + previous + " → " + this.Status);
+        System.out.println("----------------------------------");
     }
 
     @Override
     public void suspend() {
-        this.Status=Zonestatus.SUSPENDED;
-        //add the disactivation of sensors
-        System.out.println("Zone [" + name + "] → SUSPENDED");
+        Zonestatus previous = this.Status;
+        this.Status = Zonestatus.SUSPENDED;
+        suspendSensors();
+        System.out.println("----------------------------------");
+        System.out.println("  Zone Suspended");
+        System.out.println("  Name   : " + name);
+        System.out.println("  Code   : " + getUniquecode());
+        System.out.println("  Status : " + previous + " → " + this.Status);
+        System.out.println("----------------------------------");
     }
-
+    protected abstract void suspendSensors();
+    protected abstract void activateSensors();
     public abstract void display();
 
 

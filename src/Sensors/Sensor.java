@@ -1,20 +1,20 @@
 package Sensors;
 
 import ThresHold.ThresholdRange;
-import Zones.Zone;
+import moduls.Zones;
 
 import java.time.LocalDate;
 
 public class Sensor {
     protected String id;
-    protected Zone location;
+    protected Zones location;
     protected SensorStatus status;
     protected double value;
     protected LocalDate date;
     protected ThresholdRange thresholdRange;
 
     // constructor
-    public Sensor(String id, Zone location, ThresholdRange thresholdRange, LocalDate date) {
+    public Sensor(String id, Zones location, ThresholdRange thresholdRange, LocalDate date) {
         this.id = id;
         this.location = location;
         this.thresholdRange = thresholdRange;
@@ -40,6 +40,16 @@ public class Sensor {
         System.out.println("Sensor " + id + " status updated to: " + newStatus);
     }
 
+    public void suspend() {
+        this.status = SensorStatus.SUSPENDED;
+        System.out.println("Sensor [" + id + "] → SUSPENDED");
+    }
+
+    public void activate() {
+        this.status = SensorStatus.ACTIVE;
+        System.out.println("Sensor [" + id + "] → ACTIVE");
+    }
+
     public void display() {
         displaySensorInfo("Sensor");
     }
@@ -60,7 +70,7 @@ public class Sensor {
         return id;
     }
 
-    public Zone getLocation() {
+    public Zones getLocation() {
         return location;
     }
 

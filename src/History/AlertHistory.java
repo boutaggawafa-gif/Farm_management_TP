@@ -4,7 +4,7 @@ import Alerts.Alert;
 import Alerts.SeverityLevel;
 import Readings.Reading;
 import Sensors.Sensor;
-import Zones.Zone;
+import moduls.Zones;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class AlertHistory {
         }
     }
 
-    public void alertsHistoryFilterZone(Zone zone) {
+    public void alertsHistoryFilterZone(Zones zone) {
         browseAlerts(
                 "Alert History - Zone: " + zone.getName(),
                 zone,
@@ -142,11 +142,11 @@ public class AlertHistory {
                 end);
     }
 
-    public void browseAlerts(Zone zone, Sensor sensorType, SeverityLevel level, LocalDate start, LocalDate end) {
+    public void browseAlerts(Zones zone, Sensor sensorType, SeverityLevel level, LocalDate start, LocalDate end) {
         browseAlerts("Filtered Alert History", zone, sensorType, level, start, end);
     }
 
-    private void browseAlerts(String title, Zone zone, Sensor sensorType, SeverityLevel level, LocalDate start,
+    private void browseAlerts(String title, Zones zone, Sensor sensorType, SeverityLevel level, LocalDate start,
             LocalDate end) {
         List<AlertPanelRow> filteredAlerts = new ArrayList<>();
 
@@ -175,12 +175,12 @@ public class AlertHistory {
         displayAlertRows(title, filteredAlerts);
     }
 
-    private boolean matchesFilters(Alert alert, Zone zone, Sensor sensorType, SeverityLevel level) {
+    private boolean matchesFilters(Alert alert, Zones zone, Sensor sensorType, SeverityLevel level) {
         Reading reading = alert.getReading();
         Sensor alertSensor = reading.getSensor();
         alert.evaluate(reading);
 
-        if (zone != null && !alertSensor.getLocation().getId().equals(zone.getId())) {
+        if (zone != null && !(alertSensor.getLocation().equals(zone))) {
             return false;
         }
 

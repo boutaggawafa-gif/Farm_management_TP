@@ -121,13 +121,9 @@ public class Farm {
                 Cropzone c = (Cropzone) z;
                 System.out.println("Crops : " + c.getCropsCount());
 
-            } else if (z instanceof Ruminants) {
-                Ruminants r = (Ruminants) z;
-                System.out.println("Animals: " + r.getAnimalsCount());
-
-            } else if (z instanceof Poultry) {
-                Poultry p = (Poultry) z;
-                System.out.println("Animals: " + p.getAnimalsCount());
+            } else if (z instanceof LivestockZone) {
+                LivestockZone l = (LivestockZone) z;
+                System.out.println("Animals: " + l.getAnimalscount());
 
             } else if (z instanceof AquacultureZone) {
                 AquacultureZone a = (AquacultureZone) z;

@@ -2,14 +2,14 @@ package Sensors;
 
 
 import ThresHold.ThresholdRange;
-import Zones.Zone;
+import moduls.Zones;
 
 import java.time.LocalDate;
 
 public class SoilSensor extends Sensor {
     protected MeasurementType type;
 
-    public SoilSensor(String id, Zone location, ThresholdRange thresholdRange, MeasurementType type, LocalDate  date) {
+    public SoilSensor(String id, Zones location, ThresholdRange thresholdRange, MeasurementType type, LocalDate  date) {
         super(id, location, thresholdRange, date);
         this.type= type;
     }
