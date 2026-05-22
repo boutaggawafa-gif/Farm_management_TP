@@ -48,6 +48,15 @@ public class Alert {
         System.out.println("================================");
     }
 
+
+    public void acknowledge(){
+        display();
+    }
+
+    public void dismiss(){
+        System.out.println("Alert dismissed!");
+    }
+
     public Reading getReading() {
         return reading;
     }
