@@ -32,8 +32,6 @@ public class Farm {
 
 
 
-
-
     //Deactivate a zone
     public void deactivateZone(int code){
         for (Zones z:zones){
@@ -159,7 +157,6 @@ public class Farm {
         System.out.println("======= PRODUCTION SUMMARY =======");
         for (Zones z : zones) {
             if (z instanceof Producible) {
-                System.out.println("Zone: " + z.getName());
                 ((Producible) z).displayTotalProduction();
                 System.out.println("---------------------------------");
             }

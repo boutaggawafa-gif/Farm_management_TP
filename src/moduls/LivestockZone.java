@@ -7,13 +7,8 @@ import java.util.*;
 public class LivestockZone extends Zones{
     private List<Animal>  animals;
     private Feedingprogramme feedingprogramme;
-    private ThresholdGPS thresholdGPS;
 
-   /* public LivestockZone(int code, String name, Feedingprogramme feedingprogramme, ThresholdGPS thresholdGPS) {
-        super(code, name);
-        this.feedingprogramme = feedingprogramme;
-        this.thresholdGPS = thresholdGPS;
-    }*/
+
 
     public LivestockZone(int code, String name, String feedType, int quantitiesPerMeal) {
         super(code, name);
@@ -35,6 +30,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addAnimal(Animal animal){
+        if(this.getStatus().equals("suspended")){
+            System.out.println("Cannot add animal to a suspended zone.");
+            return;
+        }
         if (animal!= null){
             animals.add(animal);
         }
@@ -62,6 +61,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addHealthEventToAnimal(int uniqueNumber, HealthEvent event, String date) {
+        if(this.getStatus().equals("suspended")){
+            System.out.println("Cannot add health event to an animal in a suspended zone.");
+            return;
+        }
         for (Animal animal : animals) {
             if (animal.getUniqueNumber() == uniqueNumber) {
                 animal.addHealthEvent(event, date);
@@ -84,6 +87,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addBiometricSensor(BiometricSensor sensor) {
+        if(this.getStatus().equals("suspended")){
+            System.out.println("Cannot add sensor to a suspended zone.");
+            return;
+        }
         if (sensor != null) {
             biometricSensors.add(sensor);
             System.out.println("Biometric sensor [" + sensor.getId()+ "] added to zone: " + getName());
@@ -93,6 +100,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addGPSSensor(GPSSensor sensor) {
+        if(this.getStatus().equals("suspended")){
+            System.out.println("Cannot add sensor to a suspended zone.");
+            return;
+        }
         if (sensor != null) {
             gpsSensors.add(sensor);
             System.out.println("GPS sensor [" + sensor.getId() + "] added to zone: " + getName());

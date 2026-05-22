@@ -3,10 +3,12 @@ package moduls;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Poultry extends LivestockZone implements Producible{
 
-    private List<ProductionInfo> productionInfos =new ArrayList<>();
+    private TreeMap<LocalDate,ProductionInfo> productionRecords=new TreeMap<>();
     private double totalP;
 
 
@@ -20,20 +22,21 @@ public class Poultry extends LivestockZone implements Producible{
 
 
     public void recordProduction(LocalDate date, double quantity) {
-        ProductionInfo P=new ProductionInfo(date,quantity,ProductionType.EGG,"eggs");
+        ProductionInfo P=new ProductionInfo(quantity,ProductionType.EGG,"eggs");
         this.totalP +=quantity;
-       productionInfos.add(P);
+     productionRecords.put(date,P);
     }
 
     @Override
     public void displayProduction() {
         System.out.println("=== Egg Count Records - Zone: " + getName() + " ===");
-        if (productionInfos.isEmpty()) {
+        if (productionRecords.isEmpty()) {
             System.out.println("  No production records yet.");
             return;
         }
-        for (ProductionInfo p : productionInfos) {
-            p.display();
+        for(Map.Entry<LocalDate,ProductionInfo> entry :productionRecords.entrySet() ){
+            System.out.println(entry.getKey());
+            entry.getValue().display();
         }
         System.out.println("  Total Eggs : " + totalP + " eggs");
     }

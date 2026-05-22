@@ -3,10 +3,12 @@ package moduls;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Ruminants extends LivestockZone implements Producible{
 
-    private List<ProductionInfo> productionInfos =new ArrayList<>();
+    private TreeMap<LocalDate,ProductionInfo> productionRecords=new TreeMap<>();
     private double totalP;
 
 
@@ -23,24 +25,22 @@ public class Ruminants extends LivestockZone implements Producible{
 
     @Override
     public void recordProduction(LocalDate date, double quantity) {
-        ProductionInfo p = new ProductionInfo(
-                date, quantity, ProductionType.MILK_YIELD, "liters"
-        );
+        ProductionInfo p = new ProductionInfo(quantity, ProductionType.MILK_YIELD, "liters");
         this.totalP += quantity;
-        productionInfos.add(p);
-        System.out.println("Production recorded successfully for Ruminants Zone ["
-                + getName() + "]");
+        productionRecords.put(date,p);
+        System.out.println("Production recorded successfully for Ruminants Zone [" + getName() + "]");
     }
 
     @Override
     public void displayProduction() {
         System.out.println("=== Milk Yield Records - Zone: " + getName() + " ===");
-        if (productionInfos.isEmpty()) {
+        if (productionRecords.isEmpty()) {
             System.out.println("  No production records yet.");
             return;
         }
-        for (ProductionInfo p : productionInfos) {
-            p.display();
+        for(Map.Entry<LocalDate,ProductionInfo> entry :productionRecords.entrySet() ){
+            System.out.println(entry.getKey());
+            entry.getValue().display();
         }
         System.out.println("  Total Milk Yield : " + totalP + " liters");
     }

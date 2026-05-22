@@ -85,8 +85,6 @@ public class Main {
         // production in farm
         farm.displayAllProductionsSummary();
 
-
-
         // ============================================================
         // Q2 — Manage Crops
         // ============================================================
@@ -202,42 +200,25 @@ public class Main {
         ThresholdGPS gpsThreshold = new ThresholdGPS(13, 14, 20);
         ThresholdRange oxThreshold = new ThresholdRange(30, 90);
 
-        // Create a water sensor
+        // === AQUACULTURE ZONE SENSORS ===
+        // Create water sensors for aquacultureZone
         WaterSensor waterSensor1 = new WaterSensor("WS1", aquacultureZone, tempThreshold, WaterSensor.MeasurementType.TEMPERATURE,
             LocalDate.of(2026, 6, 7));
         waterSensor1.sendReading(200);
-        // create humidity sensor
-        EnvironmentalSensor humiditySensor1 = new EnvironmentalSensor("W02", cropzone, humidityThreshold,
-            EnvironmentalSensor.MeasurementType.HUMIDITY, LocalDate.of(2026, 5, 14));
-        humiditySensor1.sendReading(60);
 
-        // create biometric sensors
-        BiometricSensor bodyTemp1 = new BiometricSensor("S03", livestock, bodyTempThreshold,
-            BiometricSensor.MeasurementType.BODY_TEMPERATURE, LocalDate.of(2025, 5, 9));
-        bodyTemp1.sendReading(45);
-
-        // create GPS
-        GPSSensor gpsSensor1 = new GPSSensor("G09", livestock, gpsThreshold, LocalDate.of(2026, 5, 19));
-        gpsSensor1.sendReading(100, 100);
-
-        GPSSensor gpsSensor2 = new GPSSensor("G07", livestock, gpsThreshold, LocalDate.of(2026, 5, 9));
-        gpsSensor2.sendReading(300, 100);
-
-        // all are water sensors
-        // Create a water sensor
         WaterSensor waterSensor2 = new WaterSensor("WS2", aquacultureZone, tempThreshold, WaterSensor.MeasurementType.TEMPERATURE,
             LocalDate.of(2026, 6, 5));
         waterSensor2.sendReading(340);
-        // Create a water sensor
+
         WaterSensor waterSensor3 = new WaterSensor("WS3", aquacultureZone, tempThreshold,
             WaterSensor.MeasurementType.DISSOLVED_OXYGEN, LocalDate.of(2026, 4, 7));
         waterSensor3.sendReading(50);
-        // Create a water sensor
+
         WaterSensor waterSensor4 = new WaterSensor("WS4", aquacultureZone, tempThreshold,
             WaterSensor.MeasurementType.DISSOLVED_OXYGEN, LocalDate.of(2025, 3, 7));
         waterSensor4.sendReading(20);
 
-        // Extra inputs to test dashboard and charts
+        // Extra water sensors for time series testing
         WaterSensor waterSensor1Day2 = new WaterSensor("WS1", aquacultureZone, tempThreshold,
             WaterSensor.MeasurementType.TEMPERATURE, LocalDate.of(2026, 6, 8));
         waterSensor1Day2.sendReading(80);
@@ -246,6 +227,14 @@ public class Main {
             WaterSensor.MeasurementType.TEMPERATURE, LocalDate.of(2026, 6, 9));
         waterSensor1Day3.sendReading(130);
 
+        // === CROPZONE SENSORS ===
+        // Create humidity sensor for cropzone
+        EnvironmentalSensor humiditySensor1 = new EnvironmentalSensor("W02", cropzone, humidityThreshold,
+            EnvironmentalSensor.MeasurementType.HUMIDITY, LocalDate.of(2026, 5, 14));
+        humiditySensor1.sendReading(60);
+
+        // === CROP ZONE C2 SENSORS ===
+        // Create humidity sensors for zoneC2
         EnvironmentalSensor humiditySensor2 = new EnvironmentalSensor("H02",zoneC2, humidityThreshold,
             EnvironmentalSensor.MeasurementType.HUMIDITY, LocalDate.of(2026, 5, 20));
         humiditySensor2.sendReading(50);
@@ -254,6 +243,21 @@ public class Main {
             EnvironmentalSensor.MeasurementType.HUMIDITY, LocalDate.of(2026, 5, 21));
         humiditySensor2Day2.sendReading(130);
 
+        // === LIVESTOCK ZONE SENSORS ===
+        // Create biometric sensors for livestock zone
+        BiometricSensor bodyTemp1 = new BiometricSensor("S03", livestock, bodyTempThreshold,
+            BiometricSensor.MeasurementType.BODY_TEMPERATURE, LocalDate.of(2025, 5, 9));
+        bodyTemp1.sendReading(45);
+
+        // Create GPS sensors for livestock zone
+        GPSSensor gpsSensor1 = new GPSSensor("G09", livestock, gpsThreshold, LocalDate.of(2026, 5, 19));
+        gpsSensor1.sendReading(100, 100);
+
+        GPSSensor gpsSensor2 = new GPSSensor("G07", livestock, gpsThreshold, LocalDate.of(2026, 5, 9));
+        gpsSensor2.sendReading(300, 100);
+
+        // === LIVESTOCK ZONE L SENSORS ===
+        // Create biometric sensors for zoneL
         BiometricSensor bodyTemp2 = new BiometricSensor("B02", zoneL, bodyTempThreshold,
             BiometricSensor.MeasurementType.BODY_TEMPERATURE, LocalDate.of(2026, 5, 22));
         bodyTemp2.sendReading(38);
@@ -262,6 +266,7 @@ public class Main {
             BiometricSensor.MeasurementType.BODY_TEMPERATURE, LocalDate.of(2026, 5, 23));
         bodyTemp2Day2.sendReading(46);
 
+        // Create GPS sensors for zoneL
         GPSSensor gpsSensorZone2 = new GPSSensor("G20", zoneL, gpsThreshold, LocalDate.of(2026, 5, 24));
         gpsSensorZone2.sendReading(15, 15);
 

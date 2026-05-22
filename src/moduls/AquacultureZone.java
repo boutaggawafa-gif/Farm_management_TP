@@ -7,6 +7,8 @@ import Sensors.WaterSensor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class AquacultureZone  extends Zones  implements Producible{
 
@@ -14,8 +16,9 @@ public class AquacultureZone  extends Zones  implements Producible{
      private int numberOfAnimals;
      private  Feedingprogramme feedingprogrammeA;
      private double totalP;
-     private List<ProductionInfo> productionRecords =new ArrayList<>();
-    private List<WaterSensor> waterSensors = new ArrayList<>();
+    // private List<ProductionInfo> productionRecords =new ArrayList<>();
+     private TreeMap<LocalDate,ProductionInfo> productionRecords=new TreeMap<>();
+     private List<WaterSensor> waterSensors = new ArrayList<>();
 
      public AquacultureZone(int code, String name, Tank tank ,int  numberOfAnimals ,String feedType, int quantitiesPerMeal) {
           super(code, name);
@@ -48,8 +51,16 @@ public class AquacultureZone  extends Zones  implements Producible{
      }
 
      public void recordProduction(LocalDate date, double quantity) {
-          ProductionInfo P=new ProductionInfo(date,quantity,ProductionType.HARVESTWEIGHT,"kg");
-          productionRecords.add(P);
+          if (quantity < 0) {
+               System.out.println("Quantity cannot be negative.");
+               return;
+          }
+          if(this.getStatus().equals("suspended")){
+               System.out.println("Cannot record production for a suspended zone.");
+               return;
+          }
+          ProductionInfo P=new ProductionInfo(quantity,ProductionType.HARVESTWEIGHT,"kg");
+          productionRecords.put(date,P);
           this.totalP += quantity ;
           System.out.println("record Production added succesfuly");
 
@@ -62,9 +73,13 @@ public class AquacultureZone  extends Zones  implements Producible{
                System.out.println("  No production records yet.");
                return;
           }
-          for (ProductionInfo p : productionRecords) {
-               p.display();
-          }
+
+         for(Map.Entry<LocalDate, ProductionInfo> entry : productionRecords.entrySet()) {
+             System.out.println(entry.getKey());
+             entry.getValue().display();
+             System.out.println("_____________________________________________");
+         }
+
           System.out.println("  Total Harvest Weight : " + totalP + " kg");
      }
 
@@ -100,6 +115,10 @@ public class AquacultureZone  extends Zones  implements Producible{
 
 
     public void addWaterSensor(WaterSensor sensor) {
+     if(this.getStatus().equals("suspended")){
+         System.out.println("Cannot add sensor to a suspended zone.");
+         return;
+     }
         if (sensor != null) {
             waterSensors.add(sensor);
             System.out.println("GPS sensor [" + sensor.getId() + "] added to zone: " + getName());

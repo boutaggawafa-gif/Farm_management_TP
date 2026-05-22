@@ -11,9 +11,6 @@ public class Animal { ;
     private HealthStatus health;
     private TreeMap<LocalDate,HealthEvent> healthEvents = new TreeMap<>();
 
-   // private boolean hasGPSCollar;
-  //  private double activityLevel;
-   // private double bodyTemperature;
 
     public Animal(int uniqueNumber, String species, int age, HealthStatus health, double weight) {
         this.uniqueNumber = uniqueNumber;
