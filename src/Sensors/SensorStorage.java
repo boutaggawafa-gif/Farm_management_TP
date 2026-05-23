@@ -1,5 +1,7 @@
 package Sensors;
 
+import Exception.ThresholdIsNullException;
+import Exception.ZoneIsNullException;
 import ThresHold.ThresholdRange;
 import moduls.Farm;
 import moduls.Zones;
@@ -48,7 +50,19 @@ public class SensorStorage {
         Zones zone = farm.findZone(parseInt(values.get("zoneCode"), 0));
         ThresholdRange threshold = thresholds.get(thresholdName);
 
-        if (id == null || type == null || zone == null || threshold == null) {
+        try {
+            if (zone == null) {
+                throw new ZoneIsNullException("Zone is null for sensor [" + id + "].");
+            }
+            if (threshold == null) {
+                throw new ThresholdIsNullException("Threshold [" + thresholdName + "] is null for sensor [" + id + "].");
+            }
+        } catch (ZoneIsNullException | ThresholdIsNullException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        if (id == null || type == null) {
             return null;
         }
 

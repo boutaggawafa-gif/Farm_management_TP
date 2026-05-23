@@ -1,4 +1,5 @@
 package moduls;
+import Exception.ZoneSuspendedException;
 import Sensors.EnvironmentalSensor;
 
 import java.time.LocalDate;
@@ -23,8 +24,10 @@ public class Cropzone extends Zones implements Producible {
 
 
     public void addCrop(Crop crop) {
-        if(this.getStatus().equals("suspended")){
-            System.out.println("Cannot add crop to a suspended zone.");
+        try {
+            requireActive();
+        } catch (ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
             return;
         }
         if (crop != null) {
@@ -45,8 +48,10 @@ public class Cropzone extends Zones implements Producible {
             return;
         }
 
-            if (this.getStatus().equals("suspended")) {
-                System.out.println("Cannot record production for a suspended zone.");
+            try {
+                requireActive();
+            } catch (ZoneSuspendedException e) {
+                System.out.println(e.getMessage());
                 return;
             }
             ProductionInfo p = new ProductionInfo( quantity, ProductionType.CROP_YIELD, "tons");
@@ -127,6 +132,12 @@ public class Cropzone extends Zones implements Producible {
         }
         public void addSensor (EnvironmentalSensor sensor){
             environmentalSensors.add(sensor);
+        }
+
+        private void requireActive() throws ZoneSuspendedException {
+            if (!isActive()) {
+                throw new ZoneSuspendedException("Zone [" + getName() + "] is SUSPENDED.");
+            }
         }
 
         protected void suspendSensors () {

@@ -1,5 +1,6 @@
 package moduls;
 
+import Exception.ZoneSuspendedException;
 import Sensors.EnvironmentalSensor;
 import Sensors.GPSSensor;
 import Sensors.WaterSensor;
@@ -55,8 +56,10 @@ public class AquacultureZone  extends Zones  implements Producible{
                System.out.println("Quantity cannot be negative.");
                return;
           }
-          if(this.getStatus().equals("suspended")){
-               System.out.println("Cannot record production for a suspended zone.");
+          try {
+               requireActive();
+          } catch (ZoneSuspendedException e) {
+               System.out.println(e.getMessage());
                return;
           }
           ProductionInfo P=new ProductionInfo(quantity,ProductionType.HARVESTWEIGHT,"kg");
@@ -115,8 +118,10 @@ public class AquacultureZone  extends Zones  implements Producible{
 
 
     public void addWaterSensor(WaterSensor sensor) {
-     if(this.getStatus().equals("suspended")){
-         System.out.println("Cannot add sensor to a suspended zone.");
+     try {
+         requireActive();
+     } catch (ZoneSuspendedException e) {
+         System.out.println(e.getMessage());
          return;
      }
         if (sensor != null) {
@@ -134,6 +139,12 @@ public class AquacultureZone  extends Zones  implements Producible{
     @Override
     protected void activateSensors() {
         for (WaterSensor s : waterSensors) s.activate();
+    }
+
+    private void requireActive() throws ZoneSuspendedException {
+        if (!isActive()) {
+            throw new ZoneSuspendedException("Zone [" + getName() + "] is SUSPENDED.");
+        }
     }
 
 }

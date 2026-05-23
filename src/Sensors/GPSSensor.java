@@ -1,5 +1,6 @@
 package Sensors;
 
+import Exception.SensorSuspendedExption;
 import ThresHold.ThresholdGPS;
 import moduls.LivestockZone;
 
@@ -19,14 +20,15 @@ public class GPSSensor extends Sensor {
     public boolean sendReading(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
-        if (status == SensorStatus.ACTIVE) {
-            System.out.println("GPS Sensor " + id + " at " + location.getName()
-                + " sends reading: Latitude: " + latitude + ", Longitude: " + longitude);
-            return true;
-        } else {
-            System.out.println("GPS Sensor " + id + " is inactive. Cannot send reading.");
+        try {
+            requireActiveSensor();
+        } catch (SensorSuspendedExption e) {
+            System.out.println(e.getMessage());
             return false;
         }
+        System.out.println("GPS Sensor " + id + " at " + location.getName()
+            + " sends reading: Latitude: " + latitude + ", Longitude: " + longitude);
+        return true;
 
     }
 

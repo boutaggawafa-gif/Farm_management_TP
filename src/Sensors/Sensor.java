@@ -1,5 +1,7 @@
 package Sensors;
 
+import Exception.SensorSuspendedExption;
+import Exception.ThresholdIsNullException;
 import ThresHold.ThresholdRange;
 import moduls.Zones;
 
@@ -15,6 +17,13 @@ public class Sensor {
 
     // constructor
     public Sensor(String id, Zones location, ThresholdRange thresholdRange, LocalDate date) {
+        try {
+            if (thresholdRange == null) {
+                throw new ThresholdIsNullException("Threshold is null for sensor [" + id + "].");
+            }
+        } catch (ThresholdIsNullException e) {
+            System.out.println(e.getMessage());
+        }
         this.id = id;
         this.location = location;
         this.thresholdRange = thresholdRange;
@@ -25,12 +34,19 @@ public class Sensor {
     // send reading
     public boolean sendReading(double value) {
         this.value = value;
-        if (status == SensorStatus.ACTIVE) {
-            System.out.println("Sensor " + id + " at " + location.getName() + " sends reading: " + value);
-            return true;
-        } else {
-            System.out.println("Sensor " + id + " is not active. Cannot send reading.");
+        try {
+            requireActiveSensor();
+        } catch (SensorSuspendedExption e) {
+            System.out.println(e.getMessage());
             return false;
+        }
+        System.out.println("Sensor " + id + " at " + location.getName() + " sends reading: " + value);
+        return true;
+    }
+
+    protected void requireActiveSensor() throws SensorSuspendedExption {
+        if (status != SensorStatus.ACTIVE) {
+            throw new SensorSuspendedExption("Sensor " + id + " is suspended. Cannot send reading.");
         }
     }
 
@@ -61,8 +77,10 @@ public class Sensor {
         System.out.println("  Status: " + status);
         System.out.println("  Date: " + date);
         System.out.println("  Last Value: " + value + " " + getUnit());
-        System.out.println("  Threshold Range: " + thresholdRange.getMinValue() + " to " + thresholdRange.getMaxValue()
-                + " " + getUnit());
+        if (thresholdRange != null) {
+            System.out.println("  Threshold Range: " + thresholdRange.getMinValue() + " to " + thresholdRange.getMaxValue()
+                    + " " + getUnit());
+        }
     }
 
     // getters

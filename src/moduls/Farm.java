@@ -1,19 +1,26 @@
 package moduls;
-import jdk.jshell.Snippet;
+
+import Exception.ZoneIsNullException;
+import Exception.ZoneSuspendedException;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Farm {
-    private List<Zones> zones =new ArrayList<>();
+    private List<Zones> zones = new ArrayList<>();
     private ZoneStorage zoneStorage = new ZoneStorage();
 
     public Farm() {
         zones.addAll(zoneStorage.loadZones());
     }
 
-    //add a zone
     public void addZone(Zones zone) {
-        if (zone != null) {
+        try {
+            if (zone == null) {
+                throw new ZoneIsNullException("Cannot add a null zone.");
+            }
             if (findZone(zone.getUniquecode()) != null) {
                 System.out.println("Zone with code " + zone.getUniquecode() + " already exists.");
                 return;
@@ -21,60 +28,74 @@ public class Farm {
             zones.add(zone);
             saveZones();
             System.out.println("Zone [" + zone.getName() + "] added.");
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    // Edit a zone
     public void editZone(int code, String newName, Zonestatus status) {
-        Zones z = findZone(code);
-
-        if (z == null) {
-            System.out.println("Zone not found.");
-            return;
-        }
+        try {
+            Zones z = requireZone(code);
             System.out.println("Zone [" + z.getName() + "] updated:");
-            System.out.println("  Name   : " + z.getName() + " → " + newName);
+            System.out.println("  Name   : " + z.getName() + " -> " + newName);
             z.setName(newName);
-            System.out.println("  Status : " + z.getStatus() + " → " + status);
+            System.out.println("  Status : " + z.getStatus() + " -> " + status);
             z.setStatus(status);
             saveZones();
-
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-
-
-    //Deactivate a zone
-    public void deactivateZone(int code){
-        for (Zones z:zones){
-            if(z.getUniquecode()==code){
-                z.suspend();
-                saveZones();
-                return;
-            }
+    public void deactivateZone(int code) {
+        try {
+            Zones z = requireZone(code);
+            z.suspend();
+            saveZones();
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("Zone not found ");
     }
 
     public void deleteZone(int code) {
-        Iterator<Zones> iterator = zones.iterator();
-        while (iterator.hasNext()) {
-            Zones zone = iterator.next();
-            if (zone.getUniquecode() == code) {
-                iterator.remove();
-                saveZones();
-                System.out.println("Zone [" + zone.getName() + "] deleted.");
-                return;
+        try {
+            requireZone(code);
+            Iterator<Zones> iterator = zones.iterator();
+            while (iterator.hasNext()) {
+                Zones zone = iterator.next();
+                if (zone.getUniquecode() == code) {
+                    iterator.remove();
+                    saveZones();
+                    System.out.println("Zone [" + zone.getName() + "] deleted.");
+                    return;
+                }
             }
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("Zone not found.");
     }
 
-    //search or find a zone
     public Zones findZone(int code) {
         for (Zones z : zones) {
-            if (z.getUniquecode() == code) return z;
+            if (z.getUniquecode() == code) {
+                return z;
+            }
         }
         return null;
+    }
+
+    private Zones requireZone(int code) throws ZoneIsNullException {
+        Zones zone = findZone(code);
+        if (zone == null) {
+            throw new ZoneIsNullException("Zone with code " + code + " not found.");
+        }
+        return zone;
+    }
+
+    private void requireActiveZone(Zones zone) throws ZoneSuspendedException {
+        if (!zone.isActive()) {
+            throw new ZoneSuspendedException("Zone [" + zone.getName() + "] is SUSPENDED.");
+        }
     }
 
     public List<Zones> getZones() {
@@ -85,59 +106,40 @@ public class Farm {
         zoneStorage.saveZones(zones);
     }
 
-
-    // Assign crop to CropZone
     public void assignCropToZone(int zoneCode, Crop crop) {
-        Zones z = findZone(zoneCode);
+        try {
+            Zones z = requireZone(zoneCode);
+            requireActiveZone(z);
 
-        if (z == null) {
-            System.out.println("Zone not found.");
-            return;
+            if (!(z instanceof Cropzone)) {
+                System.out.println("Zone [" + z.getName() + "] is not a CropZone.");
+                return;
+            }
+
+            ((Cropzone) z).addCrop(crop);
+            System.out.println("Crop assigned to zone [" + z.getName() + "]");
+        } catch (ZoneIsNullException | ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
         }
-
-        if (!(z instanceof Cropzone)) {
-            System.out.println("Zone [" + z.getName() +
-                    "] is not a CropZone.");
-            return;
-        }
-
-        if (!z.isActive()) {
-            System.out.println("Zone [" + z.getName() +
-                    "] is SUSPENDED. Cannot assign crops.");
-            return;
-        }
-
-        ((Cropzone) z).addCrop(crop);
-        System.out.println("Crop assigned to zone [" + z.getName() + "]");
     }
 
-
-    //  Assign animal to LivestockZone
     public void assignAnimalToZone(int zoneCode, Animal animal) {
-        Zones z = findZone(zoneCode);
+        try {
+            Zones z = requireZone(zoneCode);
+            requireActiveZone(z);
 
-        if (z == null) {
-            System.out.println("Zone not found.");
-            return;
-        }
+            if (!(z instanceof LivestockZone)) {
+                System.out.println("Zone [" + z.getName() + "] is not a LivestockZone.");
+                return;
+            }
 
-        if (!(z instanceof LivestockZone)) {
-            System.out.println("Zone [" + z.getName() +
-                    "] is not a LivestockZone.");
-            return;
+            ((LivestockZone) z).addAnimal(animal);
+            System.out.println("Animal assigned to zone [" + z.getName() + "]");
+        } catch (ZoneIsNullException | ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
         }
-
-        if (!z.isActive()) {
-            System.out.println("Zone [" + z.getName() +
-                    "] is SUSPENDED. Cannot assign animals.");
-            return;
-        }
-        ((LivestockZone) z).addAnimal(animal);
-        System.out.println("Animal assigned to zone [" + z.getName() + "]");
     }
 
-
-    //display overview of all zones with their status and the number of hosted entities
     public void displayOverview() {
         System.out.println("========== FARM OVERVIEW ==========");
         System.out.println("Total zones: " + zones.size());
@@ -148,17 +150,11 @@ public class Farm {
             System.out.println("Code  : " + z.getUniquecode());
             System.out.println("Status: " + z.getStatus());
 
-            // number of hosted entities depends on zone type
-            if (z instanceof Cropzone) {
-                Cropzone c = (Cropzone) z;
+            if (z instanceof Cropzone c) {
                 System.out.println("Crops : " + c.getCropsCount());
-
-            } else if (z instanceof LivestockZone) {
-                LivestockZone l = (LivestockZone) z;
+            } else if (z instanceof LivestockZone l) {
                 System.out.println("Animals: " + l.getAnimalscount());
-
-            } else if (z instanceof AquacultureZone) {
-                AquacultureZone a = (AquacultureZone) z;
+            } else if (z instanceof AquacultureZone a) {
                 System.out.println("Species: " + a.getNumberOfAnimals());
             }
 
@@ -166,27 +162,22 @@ public class Farm {
         }
     }
 
-
-    //record production
     public void recordProduction(int zoneCode, LocalDate date, double quantity) {
-        Zones z = findZone(zoneCode);
-        if (z == null) {
-            System.out.println("Zone not found.");
-            return;
+        try {
+            Zones z = requireZone(zoneCode);
+            requireActiveZone(z);
+
+            if (!(z instanceof Producible)) {
+                System.out.println("Zone does not support production.");
+                return;
+            }
+
+            ((Producible) z).recordProduction(date, quantity);
+        } catch (ZoneIsNullException | ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
         }
-        if (!z.isActive()) {
-            System.out.println("Zone [" + z.getName() + "] is SUSPENDED.");
-            return;
-        }
-        if (!(z instanceof Producible)) {
-            System.out.println("Zone does not support production.");
-            return;
-        }
-        ((Producible) z).recordProduction(date, quantity);
     }
 
-
-    //display all productions
     public void displayAllProductionsSummary() {
         System.out.println("======= PRODUCTION SUMMARY =======");
         for (Zones z : zones) {
@@ -197,41 +188,33 @@ public class Farm {
         }
     }
 
-    //Generate a crop status report per zone
-    public void CropStatusReport(int codezone){
-        Zones zone=findZone(codezone);
-
-        if(zone==null){
-            System.out.println("zone with code "+codezone+"does not exist ");
-           return;
-        }
-        if (zone instanceof Cropzone){
-            ((Cropzone) zone).generateCropStatusReport();
+    public void CropStatusReport(int codezone) {
+        try {
+            Zones zone = requireZone(codezone);
+            if (zone instanceof Cropzone) {
+                ((Cropzone) zone).generateCropStatusReport();
+            }
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    //feeding schedules
-
-    // Display feeding schedule for a specific zone by code
     public void displayFeedingSchedule(int zoneCode) {
-        Zones z = findZone(zoneCode);
+        try {
+            Zones z = requireZone(zoneCode);
 
-        if (z == null) {
-            System.out.println("Zone not found.");
-            return;
-        }
-
-        if (z instanceof LivestockZone) {
-            ((LivestockZone) z).displayFeedingSchedules();
-        } else if (z instanceof AquacultureZone) {
-            ((AquacultureZone) z).displayFeedingSchedules();
-        } else {
-            System.out.println("Zone [" + z.getName() + "] does not have a feeding schedule.");
+            if (z instanceof LivestockZone) {
+                ((LivestockZone) z).displayFeedingSchedules();
+            } else if (z instanceof AquacultureZone) {
+                ((AquacultureZone) z).displayFeedingSchedules();
+            } else {
+                System.out.println("Zone [" + z.getName() + "] does not have a feeding schedule.");
+            }
+        } catch (ZoneIsNullException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-
-    // Display feeding schedules for ALL feedable zones
     public void displayAllFeedingSchedules() {
         System.out.println("======= ALL FEEDING SCHEDULES =======");
         boolean found = false;
@@ -252,6 +235,4 @@ public class Farm {
             System.out.println("No feedable zones found.");
         }
     }
-
-
 }

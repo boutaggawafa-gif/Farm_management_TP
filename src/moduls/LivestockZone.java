@@ -1,4 +1,5 @@
 package moduls;
+import Exception.ZoneSuspendedException;
 import Sensors.BiometricSensor;
 import Sensors.GPSSensor;
 import ThresHold.ThresholdGPS;
@@ -30,8 +31,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addAnimal(Animal animal){
-        if(this.getStatus().equals("suspended")){
-            System.out.println("Cannot add animal to a suspended zone.");
+        try {
+            requireActive();
+        } catch (ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
             return;
         }
         if (animal!= null){
@@ -61,8 +64,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addHealthEventToAnimal(int uniqueNumber, HealthEvent event, String date) {
-        if(this.getStatus().equals("suspended")){
-            System.out.println("Cannot add health event to an animal in a suspended zone.");
+        try {
+            requireActive();
+        } catch (ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
             return;
         }
         for (Animal animal : animals) {
@@ -87,8 +92,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addBiometricSensor(BiometricSensor sensor) {
-        if(this.getStatus().equals("suspended")){
-            System.out.println("Cannot add sensor to a suspended zone.");
+        try {
+            requireActive();
+        } catch (ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
             return;
         }
         if (sensor != null) {
@@ -100,8 +107,10 @@ public class LivestockZone extends Zones{
     }
 
     public void addGPSSensor(GPSSensor sensor) {
-        if(this.getStatus().equals("suspended")){
-            System.out.println("Cannot add sensor to a suspended zone.");
+        try {
+            requireActive();
+        } catch (ZoneSuspendedException e) {
+            System.out.println(e.getMessage());
             return;
         }
         if (sensor != null) {
@@ -122,6 +131,12 @@ public class LivestockZone extends Zones{
     protected void activateSensors() {
         for (BiometricSensor s : biometricSensors) s.activate();
         for (GPSSensor s : gpsSensors) s.activate();
+    }
+
+    private void requireActive() throws ZoneSuspendedException {
+        if (!isActive()) {
+            throw new ZoneSuspendedException("Zone [" + getName() + "] is SUSPENDED.");
+        }
     }
 
 
