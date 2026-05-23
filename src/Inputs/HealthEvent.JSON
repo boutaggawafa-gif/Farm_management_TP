@@ -1,0 +1,14 @@
+[
+  {
+    "animal": "cow",
+    "type": "ILLNESS",
+    "description": "Respiratory infection",
+    "date": "2006-04-30"
+  },
+  {
+    "animal": "cow",
+    "type": "ILLNESS",
+    "description": "Respiratory infection",
+    "date": "2005-04-30"
+  }
+]

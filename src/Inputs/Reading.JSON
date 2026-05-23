@@ -1,0 +1,102 @@
+[
+  {
+    "name": "r",
+    "sensorId": "WS1",
+    "date": "2026-06-07",
+    "value": 200.0
+  },
+  {
+    "name": "r02",
+    "sensorId": "WS2",
+    "date": "2026-06-05",
+    "value": 340.0
+  },
+  {
+    "name": "r03",
+    "sensorId": "WS3",
+    "date": "2026-04-07",
+    "value": 50.0
+  },
+  {
+    "name": "r04",
+    "sensorId": "WS4",
+    "date": "2025-03-07",
+    "value": 20.0
+  },
+  {
+    "name": "r05",
+    "sensorId": "WS1",
+    "date": "2026-06-08",
+    "value": 80.0
+  },
+  {
+    "name": "r06",
+    "sensorId": "WS1",
+    "date": "2026-06-09",
+    "value": 130.0
+  },
+  {
+    "name": "r1",
+    "sensorId": "W02",
+    "date": "2026-05-14",
+    "value": 60.0
+  },
+  {
+    "name": "r2",
+    "sensorId": "S03",
+    "date": "2025-05-09",
+    "value": 45.0
+  },
+  {
+    "name": "r5",
+    "sensorId": "G09",
+    "date": "2026-05-19",
+    "latitude": 100.0,
+    "longitude": 100.0
+  },
+  {
+    "name": "r6",
+    "sensorId": "G07",
+    "date": "2026-05-09",
+    "latitude": 300.0,
+    "longitude": 100.0
+  },
+  {
+    "name": "r7",
+    "sensorId": "H02",
+    "date": "2026-05-20",
+    "value": 50.0
+  },
+  {
+    "name": "r8",
+    "sensorId": "H02",
+    "date": "2026-05-21",
+    "value": 130.0
+  },
+  {
+    "name": "r9",
+    "sensorId": "B02",
+    "date": "2026-05-22",
+    "value": 38.0
+  },
+  {
+    "name": "r10",
+    "sensorId": "B02",
+    "date": "2026-05-23",
+    "value": 46.0
+  },
+  {
+    "name": "r11",
+    "sensorId": "G20",
+    "date": "2026-05-24",
+    "latitude": 15.0,
+    "longitude": 15.0
+  },
+  {
+    "name": "r12",
+    "sensorId": "G20",
+    "date": "2026-05-25",
+    "latitude": 60.0,
+    "longitude": 70.0
+  }
+]

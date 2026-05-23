@@ -1,0 +1,76 @@
+[
+  {
+    "id": "WS1",
+    "type": "water",
+    "zoneCode": 4,
+    "threshold": "temperature",
+    "measurementType": "TEMPERATURE"
+  },
+  {
+    "id": "WS2",
+    "type": "water",
+    "zoneCode": 4,
+    "threshold": "temperature",
+    "measurementType": "TEMPERATURE"
+  },
+  {
+    "id": "WS3",
+    "type": "water",
+    "zoneCode": 4,
+    "threshold": "dissolvedOxygen",
+    "measurementType": "DISSOLVED_OXYGEN"
+  },
+  {
+    "id": "WS4",
+    "type": "water",
+    "zoneCode": 4,
+    "threshold": "dissolvedOxygen",
+    "measurementType": "DISSOLVED_OXYGEN"
+  },
+  {
+    "id": "W02",
+    "type": "environmental",
+    "zoneCode": 123,
+    "threshold": "humidity",
+    "measurementType": "HUMIDITY"
+  },
+  {
+    "id": "H02",
+    "type": "environmental",
+    "zoneCode": 102,
+    "threshold": "humidity",
+    "measurementType": "HUMIDITY"
+  },
+  {
+    "id": "S03",
+    "type": "biometric",
+    "zoneCode": 111,
+    "threshold": "bodyTemperature",
+    "measurementType": "BODY_TEMPERATURE"
+  },
+  {
+    "id": "B02",
+    "type": "biometric",
+    "zoneCode": 3,
+    "threshold": "bodyTemperature",
+    "measurementType": "BODY_TEMPERATURE"
+  },
+  {
+    "id": "G09",
+    "type": "gps",
+    "zoneCode": 111,
+    "threshold": "gps"
+  },
+  {
+    "id": "G07",
+    "type": "gps",
+    "zoneCode": 111,
+    "threshold": "gps"
+  },
+  {
+    "id": "G20",
+    "type": "gps",
+    "zoneCode": 3,
+    "threshold": "gps"
+  }
+]

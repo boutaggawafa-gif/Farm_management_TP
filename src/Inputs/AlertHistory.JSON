@@ -1,0 +1,19 @@
+[
+  { "alert": "bodyTemperatureAlert" },
+  { "alert": "humidityAlert" },
+  { "alert": "bodyTemperatureAlertCopy" },
+  { "alert": "gpsAlertG09" },
+  { "alert": "gpsAlertG07" },
+  { "alert": "waterTemperatureAlert" },
+  { "alert": "waterTemperatureAlert2" },
+  { "alert": "oxygenAlert" },
+  { "alert": "oxygenAlert2" },
+  { "alert": "waterTemperatureAlert3" },
+  { "alert": "waterTemperatureAlert4" },
+  { "alert": "humidityAlert2" },
+  { "alert": "humidityAlert3" },
+  { "alert": "bodyTemperatureAlert2" },
+  { "alert": "bodyTemperatureAlert3" },
+  { "alert": "gpsAlertG20" },
+  { "alert": "gpsAlertG20Copy" }
+]

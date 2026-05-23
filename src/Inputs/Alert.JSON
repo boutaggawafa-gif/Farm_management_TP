@@ -1,0 +1,70 @@
+[
+  {
+    "name": "bodyTemperatureAlert",
+    "reading": "r2"
+  },
+  {
+    "name": "humidityAlert",
+    "reading": "r1"
+  },
+  {
+    "name": "bodyTemperatureAlertCopy",
+    "reading": "r2"
+  },
+  {
+    "name": "gpsAlertG09",
+    "reading": "r5"
+  },
+  {
+    "name": "gpsAlertG07",
+    "reading": "r6"
+  },
+  {
+    "name": "waterTemperatureAlert",
+    "reading": "r"
+  },
+  {
+    "name": "waterTemperatureAlert2",
+    "reading": "r02"
+  },
+  {
+    "name": "oxygenAlert",
+    "reading": "r03"
+  },
+  {
+    "name": "oxygenAlert2",
+    "reading": "r04"
+  },
+  {
+    "name": "waterTemperatureAlert3",
+    "reading": "r05"
+  },
+  {
+    "name": "waterTemperatureAlert4",
+    "reading": "r06"
+  },
+  {
+    "name": "humidityAlert2",
+    "reading": "r7"
+  },
+  {
+    "name": "humidityAlert3",
+    "reading": "r8"
+  },
+  {
+    "name": "bodyTemperatureAlert2",
+    "reading": "r9"
+  },
+  {
+    "name": "bodyTemperatureAlert3",
+    "reading": "r10"
+  },
+  {
+    "name": "gpsAlertG20",
+    "reading": "r11"
+  },
+  {
+    "name": "gpsAlertG20Copy",
+    "reading": "r12"
+  }
+]

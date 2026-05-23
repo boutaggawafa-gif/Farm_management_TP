@@ -1,0 +1,33 @@
+[
+  {
+    "name": "temperature",
+    "type": "range",
+    "minValue": 0.0,
+    "maxValue": 100.0
+  },
+  {
+    "name": "humidity",
+    "type": "range",
+    "minValue": 20.0,
+    "maxValue": 120.0
+  },
+  {
+    "name": "bodyTemperature",
+    "type": "range",
+    "minValue": 37.0,
+    "maxValue": 40.0
+  },
+  {
+    "name": "gps",
+    "type": "gps",
+    "centerLatitude": 13.0,
+    "centerLongitude": 14.0,
+    "radius": 20.0
+  },
+  {
+    "name": "dissolvedOxygen",
+    "type": "range",
+    "minValue": 30.0,
+    "maxValue": 90.0
+  }
+]

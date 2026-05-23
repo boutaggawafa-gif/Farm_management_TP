@@ -1,0 +1,23 @@
+[
+  {
+    "name": "wheat",
+    "minPH": 3.0,
+    "maxPH": 10.0,
+    "minMoisture": 20.0,
+    "maxMoisture": 30.0
+  },
+  {
+    "name": "tomato",
+    "minPH": 5.5,
+    "maxPH": 6.5,
+    "minMoisture": 50.0,
+    "maxMoisture": 70.0
+  },
+  {
+    "name": "apple",
+    "minPH": 6.5,
+    "maxPH": 7.5,
+    "minMoisture": 35.0,
+    "maxMoisture": 55.0
+  }
+]

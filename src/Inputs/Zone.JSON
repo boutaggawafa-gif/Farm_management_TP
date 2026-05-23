@@ -1,0 +1,65 @@
+[
+  {
+    "type": "Cropzone",
+    "code": 123,
+    "name": "Crop Zone",
+    "status": "ACTIVE"
+  },
+  {
+    "type": "LivestockZone",
+    "code": 111,
+    "name": "zone1",
+    "status": "ACTIVE",
+    "feedType": "feedtype",
+    "quantitiesPerMeal": 14
+  },
+  {
+    "type": "AquacultureZone",
+    "code": 4,
+    "name": "Aquatic Zone A",
+    "status": "ACTIVE",
+    "numberOfAnimals": 200,
+    "feedType": "Algae Feed",
+    "quantitiesPerMeal": 15
+  },
+  {
+    "type": "Cropzone",
+    "code": 1,
+    "name": "Suspended Zone ",
+    "status": "SUSPENDED"
+  },
+  {
+    "type": "Cropzone",
+    "code": 156,
+    "name": "North Field",
+    "status": "ACTIVE"
+  },
+  {
+    "type": "Ruminants",
+    "code": 2,
+    "name": "Ruminant Zone A",
+    "status": "ACTIVE",
+    "feedType": "hay",
+    "quantitiesPerMeal": 3
+  },
+  {
+    "type": "Cropzone",
+    "code": 101,
+    "name": "North Field",
+    "status": "SUSPENDED"
+  },
+  {
+    "type": "Cropzone",
+    "code": 102,
+    "name": "South Field",
+    "status": "ACTIVE"
+  },
+  {
+    "type": "LivestockZone",
+    "code": 3,
+    "name": "Cattle Zone",
+    "status": "ACTIVE",
+    "feedType": "Hay",
+    "quantitiesPerMeal": 5
+  }
+]

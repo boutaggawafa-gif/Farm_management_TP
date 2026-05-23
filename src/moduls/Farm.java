@@ -5,11 +5,21 @@ import java.time.LocalDate;
 import java.util.*;
 public class Farm {
     private List<Zones> zones =new ArrayList<>();
+    private ZoneStorage zoneStorage = new ZoneStorage();
+
+    public Farm() {
+        zones.addAll(zoneStorage.loadZones());
+    }
 
     //add a zone
     public void addZone(Zones zone) {
         if (zone != null) {
+            if (findZone(zone.getUniquecode()) != null) {
+                System.out.println("Zone with code " + zone.getUniquecode() + " already exists.");
+                return;
+            }
             zones.add(zone);
+            saveZones();
             System.out.println("Zone [" + zone.getName() + "] added.");
         }
     }
@@ -27,6 +37,7 @@ public class Farm {
             z.setName(newName);
             System.out.println("  Status : " + z.getStatus() + " → " + status);
             z.setStatus(status);
+            saveZones();
 
     }
 
@@ -37,10 +48,25 @@ public class Farm {
         for (Zones z:zones){
             if(z.getUniquecode()==code){
                 z.suspend();
+                saveZones();
                 return;
             }
         }
         System.out.println("Zone not found ");
+    }
+
+    public void deleteZone(int code) {
+        Iterator<Zones> iterator = zones.iterator();
+        while (iterator.hasNext()) {
+            Zones zone = iterator.next();
+            if (zone.getUniquecode() == code) {
+                iterator.remove();
+                saveZones();
+                System.out.println("Zone [" + zone.getName() + "] deleted.");
+                return;
+            }
+        }
+        System.out.println("Zone not found.");
     }
 
     //search or find a zone
@@ -49,6 +75,14 @@ public class Farm {
             if (z.getUniquecode() == code) return z;
         }
         return null;
+    }
+
+    public List<Zones> getZones() {
+        return new ArrayList<>(zones);
+    }
+
+    private void saveZones() {
+        zoneStorage.saveZones(zones);
     }
 
 

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "cow",
+    "uniqueNumber": 101,
+    "species": "Cow",
+    "age": 3,
+    "health": "HEALTHY",
+    "weight": 500.0,
+    "zoneCode": 2
+  },
+  {
+    "name": "sheep",
+    "uniqueNumber": 102,
+    "species": "Sheep",
+    "age": 2,
+    "health": "HEALTHY",
+    "weight": 80.0,
+    "zoneCode": 2
+  }
+]

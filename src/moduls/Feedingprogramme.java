@@ -14,6 +14,14 @@ public class Feedingprogramme {
         QuantitiesPerMeal = quantitiesPerMeal;
     }
 
+    public String getFeedType() {
+        return feedType;
+    }
+
+    public int getQuantitiesPerMeal() {
+        return QuantitiesPerMeal;
+    }
+
     public void addMealTime(String time) {
         if (time != null && !time.isEmpty()) {
             schedule.add(time);
@@ -39,4 +47,3 @@ public class Feedingprogramme {
         }
     }
 }
-
