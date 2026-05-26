@@ -47,7 +47,7 @@ public class SensorStorage {
         String id = values.get("id");
         String type = values.get("type");
         String thresholdName = values.get("threshold");
-        Zones zone = farm.findZone(parseInt(values.get("zoneCode"), 0));
+        Zones zone = farm.findZone(values.get("zoneName"));
         ThresholdRange threshold = thresholds.get(thresholdName);
 
         try {
