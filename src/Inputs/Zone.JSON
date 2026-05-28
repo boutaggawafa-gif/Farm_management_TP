@@ -25,13 +25,13 @@
   {
     "type": "Cropzone",
     "code": 1,
-    "name": "Suspended Zone ",
+    "name": "Suspended Zone",
     "status": "SUSPENDED"
   },
   {
     "type": "Cropzone",
     "code": 156,
-    "name": "North Field",
+    "name": "North Field Temp",
     "status": "ACTIVE"
   },
   {

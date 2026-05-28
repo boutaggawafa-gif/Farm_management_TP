@@ -55,7 +55,8 @@ public class SensorStorage {
                 throw new ZoneIsNullException("Zone is null for sensor [" + id + "].");
             }
             if (threshold == null) {
-                throw new ThresholdIsNullException("Threshold [" + thresholdName + "] is null for sensor [" + id + "].");
+                throw new ThresholdIsNullException(
+                        "Threshold [" + thresholdName + "] is null for sensor [" + id + "].");
             }
         } catch (ZoneIsNullException | ThresholdIsNullException e) {
             System.out.println(e.getMessage());
@@ -71,8 +72,7 @@ public class SensorStorage {
                 type,
                 zone,
                 threshold,
-                values.getOrDefault("measurementType", "")
-        );
+                values.getOrDefault("measurementType", ""));
     }
 
     private List<String> extractObjects(String json) {
@@ -179,7 +179,6 @@ public class SensorStorage {
             String type,
             Zones zone,
             ThresholdRange threshold,
-            String measurementType
-    ) {
+            String measurementType) {
     }
 }

@@ -78,8 +78,9 @@ public class Sensor {
         System.out.println("  Date: " + date);
         System.out.println("  Last Value: " + value + " " + getUnit());
         if (thresholdRange != null) {
-            System.out.println("  Threshold Range: " + thresholdRange.getMinValue() + " to " + thresholdRange.getMaxValue()
-                    + " " + getUnit());
+            System.out.println(
+                    "  Threshold Range: " + thresholdRange.getMinValue() + " to " + thresholdRange.getMaxValue()
+                            + " " + getUnit());
         }
     }
 
